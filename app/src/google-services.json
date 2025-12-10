@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "459154151090",
+    "project_id": "smart-earthquark-alart-app",
+    "storage_bucket": "smart-earthquark-alart-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459154151090:android:dcb3b842b093ad121a9bab",
+        "android_client_info": {
+          "package_name": "com.example.smartearthquarkalart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC-NCMnWZiQ7C9bO5mx8o6KwMp5on3qPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
