@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.smartearthquarkalart.R
+import com.example.smartearthquarkalart.views.dashboard.DashboardActivity
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         if (curretUser!=null){
 
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, DashboardActivity::class.java))
             finish()
 
         }
