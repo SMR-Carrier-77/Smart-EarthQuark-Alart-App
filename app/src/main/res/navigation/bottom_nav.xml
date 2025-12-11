@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.smartearthquarkalart.views.dashboard.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/alartFragment"
+        android:name="com.example.smartearthquarkalart.views.dashboard.alart.AlartFragment"
+        android:label="fragment_alart"
+        tools:layout="@layout/fragment_alart" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.smartearthquarkalart.views.dashboard.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_deleteAccountFragment"
+            app:destination="@id/deleteAccountFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_privacyPolicyFragment2"
+            app:destination="@id/privacyPolicyFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_developerInfoFragment"
+            app:destination="@id/developerInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/developerInfoFragment"
+        android:name="com.example.smartearthquarkalart.views.dashboard.setting.other.DeveloperInfoFragment"
+        android:label="fragment_developer_info"
+        tools:layout="@layout/fragment_developer_info" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.example.smartearthquarkalart.views.dashboard.setting.other.PrivacyPolicyFragment"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+    <fragment
+        android:id="@+id/deleteAccountFragment"
+        android:name="com.example.smartearthquarkalart.views.dashboard.setting.other.DeleteAccountFragment"
+        android:label="fragment_delete_account"
+        tools:layout="@layout/fragment_delete_account" />
+</navigation>
