@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/tools"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp"
+    android:layout_marginVertical="@dimen/_4sdp"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:gravity="center_vertical"
+        >
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/outlinedButton"
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_56sdp"
+            android:text="5.5"
+            style="?attr/materialButtonOutlinedStyle"
+            app:strokeColor="#FF4D00"
+            app:strokeWidth="5"
+        />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="4dp"
+            >
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="South Africa"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subtitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Earthquake magnitude: 4.8"
+                android:textColor="#333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/timeAgoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="৩০ মিনিট আগে"
+                android:textColor="#444"
+                android:textSize="16sp"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/damageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ক্ষতির পরিমাণ: কম"
+                android:textColor="#555"
+                android:textSize="16sp"
+                android:layout_marginTop="2dp"
+                />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/rightImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_flag"
+            android:layout_marginStart="10dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
