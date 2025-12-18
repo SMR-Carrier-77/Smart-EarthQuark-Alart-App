@@ -50,7 +50,7 @@
                 android:id="@+id/subtitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Earthquake magnitude: 4.8"
+                android:text="Depth : 18"
                 android:textColor="#333"
                 android:textSize="16sp"
                 android:textStyle="bold"

@@ -87,5 +87,8 @@ dependencies {
 
     implementation(libs.play.services.location)
 
+    // volley
+    implementation(libs.volley)
+
 
 }

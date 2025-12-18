@@ -29,9 +29,9 @@ class DashboardActivity : AppCompatActivity() {
 
         val appbarConfig = AppBarConfiguration(
             setOf(
-                R.id.home_Dashboard,
-                R.id.alart_Dashboard,
-                R.id.setting_Dashboard
+                R.id.homeFragment,
+                R.id.alartFragment,
+                R.id.settingFragment
             )
         )
 
