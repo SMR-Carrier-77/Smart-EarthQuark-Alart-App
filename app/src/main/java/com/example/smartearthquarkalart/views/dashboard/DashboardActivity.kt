@@ -22,7 +22,6 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         navController = findNavController(R.id.fragmentDashboard)
 
         binding.sellerBottomNavigationView.setupWithNavController(navController)

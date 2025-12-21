@@ -149,8 +149,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     }
                 }
 
+                dataList.sortByDescending { it.event_time }
                 binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
-                binding.recycleView.adapter = EarthquakeAdapter( dataList)
+                binding.recycleView.adapter = EarthquakeAdapter( requireContext() , dataList)
 
 
             },

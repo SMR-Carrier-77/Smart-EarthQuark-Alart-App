@@ -1,17 +1,19 @@
 package com.example.smartearthquarkalart
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartearthquarkalart.data.models.Earthquake_Data_Class
 import com.example.smartearthquarkalart.databinding.ItemBinding
-import com.google.api.Context
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
 class EarthquakeAdapter(
+    var context: Context,
     private var dataList: MutableList<Earthquake_Data_Class>
 ) : RecyclerView.Adapter<EarthquakeAdapter.EarthquakeViewHolder>() {
 
@@ -24,13 +26,17 @@ class EarthquakeAdapter(
     }
 
     override fun onBindViewHolder(holder: EarthquakeViewHolder, position: Int) {
+
        holder.binding.apply {
 
            dataList[position].let{
 
-               titleText.text = it.place
-               subtitleText.text = "Depth : "+it.depth
-               outlinedButton.text = ""+it.magnitude
+               tvPlace.text = it.place
+               tvDepth.text = it.depth
+               tvMagnitude.text = "%.2f".format(it.magnitude)
+               tvLatitude.text = "Lat: %.2f".format(it.latitude)
+               tvLongitude.text = "Lon: %.2f".format(it.longitude)
+
 
                val eventTimeStr = if (it.event_time != 0L) {
                    val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
@@ -40,21 +46,47 @@ class EarthquakeAdapter(
                    "Unknown"
                }
 
-               timeAgoText.text =eventTimeStr.toString()
+               tvDate.text =eventTimeStr.toString()
 
                var level = it.magType
 
                if (level=="md"){
-                   damageText.text = "Type : No matter"
+                   tvMagnitudeType.text = "Type: Micro"
                }else if (level=="ml"){
-                   damageText.text = "Type : Normal"
+                   tvMagnitudeType.text = "Type: Normal"
                }else if (level=="mb"){
-                   damageText.text = "Type : Medium"
+                   tvMagnitudeType.text = "Type: Medium"
                }else if (level=="ms"){
-                   damageText.text = "Type : Big"
+                   tvMagnitudeType.text = "Type: Big"
                }else if (level=="mw"){
-                   damageText.text = "Type : Dangerous"
+                   tvMagnitudeType.text = "Type: Dangerous"
                }
+
+               if (it.tsunami==0){
+                   tvTsunamiStatus.text = "Tsunami: No"
+               }else{
+                   tvTsunamiStatus.text = "Tsunami: Yes"
+               }
+
+               root.setOnClickListener {
+
+                   val item = dataList[position]
+                   val intent = Intent(context, DetailsActivity::class.java)
+
+                   intent.putExtra("place",  item.place)
+                   intent.putExtra("depth", item.depth)
+                   intent.putExtra("magnitude", item.magnitude)
+                   intent.putExtra("latitude", item.latitude)
+                   intent.putExtra("longitude", item.longitude)
+                   intent.putExtra("time", item.event_time)
+                   intent.putExtra("magType", item.magType)
+                   intent.putExtra("tsunami", item.tsunami)
+                   intent.putExtra("title", item.title)
+                   intent.putExtra("sig", item.sig)
+
+                   context.startActivity(intent)
+               }
+
 
 
            }
