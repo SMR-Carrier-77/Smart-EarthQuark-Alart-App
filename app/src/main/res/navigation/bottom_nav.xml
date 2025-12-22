@@ -50,7 +50,7 @@
         tools:layout="@layout/fragment_delete_account" />
     <fragment
         android:id="@+id/aboutAppFragment"
-        android:name="com.example.smartearthquarkalart.AboutAppFragment"
-        android:label="fragment_about_app"
+        android:name="com.example.smartearthquarkalart.views.dashboard.setting.other.AboutAppFragment"
+        android:label="About app"
         tools:layout="@layout/fragment_about_app" />
 </navigation>

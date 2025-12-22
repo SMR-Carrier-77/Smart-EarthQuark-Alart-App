@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
-    android:padding="16dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    tools:context="com.example.smartearthquarkalart.views.dashboard.setting.other.DeveloperInfoFragment"
+
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,8 +36,7 @@
                 android:text="Developer Info"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textColor="?attr/android:textColor"/>
+                android:gravity="center" />
         </LinearLayout>
 
         <!-- Developer Info Card -->
@@ -64,14 +66,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name: AR Sarkar\nRole: Android Developer\nEmail: example@email.com\nGitHub: github.com/username\nAdditional Info: You can add more details here about yourself, your projects, or how to contact you."
-                    android:textSize="16sp"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="👤 Name: Most. Sidratun Muntahar\n\n💼 Role: Android App Developer | UI UX Designer | Computer Science Student\n\n📧 Email: sidratunmuntaharsmr77@gmail.com\n\n🌍 Location: Rangpur, Bangladesh\n\n🌐 Website: https://smrcarrier77.blogspot.com\n\n💬 About: Built with ❤️, powered by Kotlin, and fueled by late-night coding ☕💡"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:padding="16dp"/>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Optional: More Info Section -->
+      <!--   Optional: More Info Section
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +107,7 @@
                     android:lineSpacingExtra="2dp"
                     android:textColor="?attr/android:textColorSecondary"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>  -->
 
     </LinearLayout>
 </ScrollView>

@@ -90,5 +90,8 @@ dependencies {
     // volley
     implementation(libs.volley)
 
+    // OSM Mao
+    implementation(libs.osmdroid.android)
+
 
 }

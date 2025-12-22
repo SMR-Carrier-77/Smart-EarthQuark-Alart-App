@@ -5,33 +5,29 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.os.Bundle
+import android.graphics.drawable.BitmapDrawable
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import com.example.smartearthquarkalart.EarthquakeAdapter
-import com.example.smartearthquarkalart.data.models.Earthquake_Data_Class
 import com.example.smartearthquarkalart.base.BaseFragment
+import com.example.smartearthquarkalart.data.models.Earthquake_Data_Class
 import com.example.smartearthquarkalart.databinding.FragmentHomeBinding
+import com.example.smartearthquarkalart.views.adapter.EarthquakeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
-import org.maplibre.android.annotations.Icon
-import org.maplibre.android.annotations.IconFactory
-import org.maplibre.android.annotations.MarkerOptions
-import org.maplibre.android.camera.CameraPosition
-import org.maplibre.android.geometry.LatLng
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
+import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Marker
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+class HomeFragment :
+    BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    var dataList: MutableList<Earthquake_Data_Class> = mutableListOf()
-    val locations = mutableListOf<LatLng>()
+    private val dataList = mutableListOf<Earthquake_Data_Class>()
+    private val locations = mutableListOf<GeoPoint>()
 
     companion object {
         var lat = 23.8103
@@ -39,14 +35,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun setListener() {
+        setupOSM()
         loadSavedLocation()
-
-        // JSON data load & map update
         loadData()
     }
 
+    override fun allObserver() {}
+
+    // -------------------- OSM setup --------------------
+    private fun setupOSM() {
+        Configuration.getInstance().load(
+            requireContext(),
+            requireContext().getSharedPreferences(
+                "osm_pref",
+                Context.MODE_PRIVATE
+            )
+        )
+        Configuration.getInstance().userAgentValue =
+            requireContext().packageName
+    }
+
+    // -------------------- Load saved lat/lon --------------------
     private fun loadSavedLocation() {
-        val sharedPref = requireContext().getSharedPreferences("user_location", Context.MODE_PRIVATE)
+        val sharedPref =
+            requireContext().getSharedPreferences("user_location", Context.MODE_PRIVATE)
+
         val savedLat = sharedPref.getString("latitude", null)
         val savedLon = sharedPref.getString("longitude", null)
 
@@ -56,118 +69,161 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-    override fun allObserver() {
-        // observers
-    }
-
+    // -------------------- API load --------------------
     private fun loadData() {
         val queue = Volley.newRequestQueue(requireContext())
 
-        val jsonArrayRequest = JsonArrayRequest(
+        val request = JsonArrayRequest(
             Request.Method.GET,
             "https://arsarkar.xyz/apps/get_earthquake_data.php",
             null,
             { response: JSONArray ->
 
+                binding.animationView.visibility = View.GONE
+                binding.homeData.visibility = View.VISIBLE
+
                 dataList.clear()
                 locations.clear()
+                binding.mapView.overlays.clear()
 
                 for (i in 0 until response.length()) {
-                    val jsonObject = response.getJSONObject(i)
+                    val obj = response.getJSONObject(i)
 
-                    val id = jsonObject.optInt("id", 0)
-                    val eventId = jsonObject.optString("event_id", "unknown")
-                    val magnitude = jsonObject.optDouble("magnitude", 0.0).toFloat()
-                    val place = jsonObject.optString("place", "Unknown")
-                    val eventTime = jsonObject.optLong("event_time", 0L)
-                    val latitude = jsonObject.optDouble("latitude", 0.0)
-                    val longitude = jsonObject.optDouble("longitude", 0.0)
-                    val depth = jsonObject.optString("depth", "0")
-                    val title = jsonObject.optString("title", "No title")
-                    val tsunami = jsonObject.optInt("tsunami", 0)
-                    val magType = jsonObject.optString("magType", "unknown")
-                    val sig = jsonObject.optInt("sig", 0)
-
-                    dataList.add(
-                        Earthquake_Data_Class(
-                            id,
-                            eventId,
-                            magnitude,
-                            place,
-                            eventTime,
-                            latitude,
-                            longitude,
-                            depth,
-                            title,
-                            tsunami,
-                            magType,
-                            sig
-                        )
+                    val item = Earthquake_Data_Class(
+                        obj.optInt("id"),
+                        obj.optString("event_id"),
+                        obj.optDouble("magnitude").toFloat(),
+                        obj.optString("place"),
+                        obj.optLong("event_time"),
+                        obj.optDouble("latitude"),
+                        obj.optDouble("longitude"),
+                        obj.optString("depth"),
+                        obj.optString("title"),
+                        obj.optInt("tsunami"),
+                        obj.optString("magType"),
+                        obj.optInt("sig")
                     )
 
-                    locations.add(LatLng(latitude, longitude))
+                    dataList.add(item)
+                    locations.add(GeoPoint(item.latitude, item.longitude))
                 }
 
-                binding.mapView.getMapAsync { map ->
-                    map.setStyle("https://demotiles.maplibre.org/style.json") { style ->
-
-                        // Red dot with outer circle
-                        val iconFactory = IconFactory.getInstance(requireContext())
-
-                        val size = 40
-                        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-                        val canvas = Canvas(bitmap)
-
-                        val outerPaint = Paint()
-                        outerPaint.color = Color.RED
-                        outerPaint.alpha = 80  // transparency
-                        outerPaint.style = Paint.Style.STROKE
-                        outerPaint.strokeWidth = 6f
-                        canvas.drawCircle(size/2f, size/2f, size/3f, outerPaint)
-
-                        val innerPaint = Paint()
-                        innerPaint.color = Color.RED
-                        innerPaint.style = Paint.Style.FILL
-                        canvas.drawCircle(size/2f, size/2f, size/6f, innerPaint)
-
-                        val markerIcon: Icon = iconFactory.fromBitmap(bitmap)
-
-                        for (loc in locations) {
-                            val marker = MarkerOptions()
-                                .position(loc)
-                                .title("Magnitude location")
-                                .icon(markerIcon)  // red dot attach
-                            map.addMarker(marker)
-                        }
-
-                        if (locations.isNotEmpty()) {
-                            map.cameraPosition = CameraPosition.Builder()
-                                .target(locations[0])
-                                .zoom(0.1)
-                                .build()
-                        }
-                    }
-                }
-
-                dataList.sortByDescending { it.event_time }
-                binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
-                binding.recycleView.adapter = EarthquakeAdapter( requireContext() , dataList)
-
+                setupMap()
+                setupRecycler()
 
             },
             {
-                Toast.makeText(requireContext(), "Error loading data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Error loading data",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         )
 
-        queue.add(jsonArrayRequest)
+        queue.add(request)
     }
 
-    override fun onStart() {
-        super.onStart()
-        binding.mapView.onStart()
+    private fun createBlueDotIcon(): BitmapDrawable {
+        val size = 40
+        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // outer circle
+        val outerPaint = Paint().apply {
+            color = Color.BLUE
+            alpha = 70
+            style = Paint.Style.STROKE
+            strokeWidth = 5f
+            isAntiAlias = true
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 2.4f, outerPaint)
+
+        // inner dot
+        val innerPaint = Paint().apply {
+            color = Color.BLUE
+            style = Paint.Style.FILL
+            isAntiAlias = true
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 6f, innerPaint)
+
+        return BitmapDrawable(resources, bitmap)
     }
 
+
+    // -------------------- Create red dot icon --------------------
+    private fun createRedDotIcon(): BitmapDrawable {
+        val size = 40
+        val bitmap =
+            Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // outer circle
+        val outerPaint = Paint().apply {
+            color = Color.RED
+            alpha = 70
+            style = Paint.Style.STROKE
+            strokeWidth = 5f
+            isAntiAlias = true
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 2.4f, outerPaint)
+
+        // inner dot
+        val innerPaint = Paint().apply {
+            color = Color.RED
+            style = Paint.Style.FILL
+            isAntiAlias = true
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 6f, innerPaint)
+
+        return BitmapDrawable(resources, bitmap)
+    }
+
+    // -------------------- Map render --------------------
+    private fun setupMap() {
+        val map = binding.mapView
+        map.setMultiTouchControls(true)
+
+        val controller = map.controller
+        controller.setZoom(10.0)
+
+        val userPoint = GeoPoint(lat, lon)
+        controller.setCenter(userPoint)
+
+        val redDotIcon = createRedDotIcon()
+        val blueLocationIcon = createBlueDotIcon()
+
+        // User location
+        val userMarker = Marker(map)
+        userMarker.position = userPoint
+        userMarker.icon = blueLocationIcon
+        userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+        userMarker.title = "Your Location"
+        map.overlays.add(userMarker)
+
+        // Earthquake locations
+        for (point in locations) {
+            val marker = Marker(map)
+            marker.position = point
+            marker.icon = redDotIcon
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+            marker.title = "Earthquake Location"
+            map.overlays.add(marker)
+        }
+
+        map.invalidate()
+    }
+
+    // -------------------- Recycler --------------------
+    private fun setupRecycler() {
+        dataList.sortByDescending { it.event_time }
+        binding.recycleView.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.recycleView.adapter =
+            EarthquakeAdapter(requireContext(), dataList)
+    }
+
+    // -------------------- Map lifecycle --------------------
     override fun onResume() {
         super.onResume()
         binding.mapView.onResume()
@@ -178,23 +234,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         super.onPause()
     }
 
-    override fun onStop() {
-        binding.mapView.onStop()
-        super.onStop()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding.mapView.onLowMemory()
-    }
-
     override fun onDestroy() {
-        binding.mapView.onDestroy()
+        binding.mapView.onDetach()
         super.onDestroy()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        binding.mapView.onSaveInstanceState(outState)
     }
 }

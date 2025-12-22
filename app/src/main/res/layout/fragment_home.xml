@@ -7,14 +7,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    android:paddingHorizontal="@dimen/_8sdp"
     >
 
-    <org.maplibre.android.maps.MapView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/homeData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+    <org.osmdroid.views.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_180sdp"
-        />
+        android:layout_height="300dp"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
@@ -23,5 +39,7 @@
         tools:listitem="@layout/item"
         android:layout_marginTop="8dp"
         />
+
+</LinearLayout>
 
 </LinearLayout>

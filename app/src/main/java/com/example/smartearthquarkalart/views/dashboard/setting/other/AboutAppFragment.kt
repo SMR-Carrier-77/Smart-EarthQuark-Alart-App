@@ -7,17 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.smartearthquarkalart.R
 import com.example.smartearthquarkalart.base.BaseFragment
-import com.example.smartearthquarkalart.databinding.FragmentPrivacyPolicyBinding
+import com.example.smartearthquarkalart.databinding.FragmentAboutAppBinding
 
-class PrivacyPolicyFragment : BaseFragment<FragmentPrivacyPolicyBinding>(
-    FragmentPrivacyPolicyBinding::inflate
-) {
+class AboutAppFragment : BaseFragment<FragmentAboutAppBinding>(FragmentAboutAppBinding::inflate) {
     override fun setListener() {
 
     }
 
     override fun allObserver() {
-    }
 
+    }
 
 }

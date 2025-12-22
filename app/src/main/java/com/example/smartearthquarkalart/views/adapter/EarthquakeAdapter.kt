@@ -1,4 +1,4 @@
-package com.example.smartearthquarkalart
+package com.example.smartearthquarkalart.views.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartearthquarkalart.data.models.Earthquake_Data_Class
 import com.example.smartearthquarkalart.databinding.ItemBinding
+import com.example.smartearthquarkalart.views.details.DetailsActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -37,6 +38,24 @@ class EarthquakeAdapter(
                tvLatitude.text = "Lat: %.2f".format(it.latitude)
                tvLongitude.text = "Lon: %.2f".format(it.longitude)
 
+               val eventTimeMillis = it.event_time // যদি timestamp milliseconds এ হয়
+               val currentTimeMillis = System.currentTimeMillis()
+
+               val diffMillis = currentTimeMillis - eventTimeMillis
+
+               val seconds = diffMillis / 1000
+               val minutes = seconds / 60
+               val hours = minutes / 60
+               val days = hours / 24
+
+               val timeAgo = when {
+                   days > 0 -> "$days days ago"
+                   hours > 0 -> "$hours hours ago"
+                   minutes > 0 -> "$minutes minutes ago"
+                   else -> "$seconds seconds ago"
+               }
+
+               tvTimeAgo.text = timeAgo  // Output: e.g. "2 hours ago"
 
                val eventTimeStr = if (it.event_time != 0L) {
                    val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())

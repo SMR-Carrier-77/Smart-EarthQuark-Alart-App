@@ -1,19 +1,21 @@
-package com.example.smartearthquarkalart
+package com.example.smartearthquarkalart.views.details
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smartearthquarkalart.databinding.ActivityDetailsBinding
-import org.maplibre.android.annotations.Icon
-import org.maplibre.android.annotations.IconFactory
-import org.maplibre.android.annotations.MarkerOptions
-import org.maplibre.android.camera.CameraUpdateFactory
-import org.maplibre.android.geometry.LatLng
+import com.example.smartearthquarkalart.views.dashboard.home.HomeFragment.Companion.lat
+import com.example.smartearthquarkalart.views.dashboard.home.HomeFragment.Companion.lon
 import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.OnMapReadyCallback
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Marker
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -28,6 +30,11 @@ class DetailsActivity : AppCompatActivity() {
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.loadingContainer.visibility = View.GONE
+            binding.scrollView.visibility = View.VISIBLE
+        }, 3000)
+
         // Get data from intent
         val place = intent.getStringExtra("place") ?: "Unknown"
         val depth = intent.getStringExtra("depth") ?: "0"
@@ -37,6 +44,8 @@ class DetailsActivity : AppCompatActivity() {
         val time = intent.getLongExtra("time", 0L)
         val magType = intent.getStringExtra("magType") ?: "-"
         val tsunami = intent.getIntExtra("tsunami", 0)
+
+        setupMap(latitude , longitude , place)
 
         // Bind data to views
         binding.tvMagnitude.text = magnitude.toString()
@@ -80,12 +89,59 @@ class DetailsActivity : AppCompatActivity() {
         )
     }
 
-    // MapView lifecycle methods
-    override fun onStart() {
-        super.onStart()
-        binding.mapView.onStart()
+    private fun createRedDotIcon(): BitmapDrawable {
+        val size = 40
+        val bitmap =
+            Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // outer circle
+        val outerPaint = Paint().apply {
+            color = Color.RED
+            alpha = 70
+            style = Paint.Style.STROKE
+            strokeWidth = 5f
+            isAntiAlias = true
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 2.4f, outerPaint)
+
+        // inner dot
+        val innerPaint = Paint().apply {
+            color = Color.RED
+            style = Paint.Style.FILL
+            isAntiAlias = true
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 6f, innerPaint)
+
+        return BitmapDrawable(resources, bitmap)
     }
 
+
+    private fun setupMap(lati : Double , longi : Double , place : String) {
+        val map = binding.mapView
+        map.setMultiTouchControls(true)
+
+        val controller = map.controller
+        controller.setZoom(10.0)
+
+        val userPoint = GeoPoint(lati, longi)
+        controller.setCenter(userPoint)
+
+        val redDotIcon = createRedDotIcon()
+       // val blueLocationIcon = createRedDotIcon()
+
+        // User location
+        val userMarker = Marker(map)
+        userMarker.position = userPoint
+        userMarker.icon = redDotIcon
+        userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+        userMarker.title = "$place"
+        map.overlays.add(userMarker)
+
+        map.invalidate()
+    }
+
+    // -------- MapView lifecycle --------
     override fun onResume() {
         super.onResume()
         binding.mapView.onResume()
@@ -96,23 +152,14 @@ class DetailsActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    override fun onStop() {
-        binding.mapView.onStop()
-        super.onStop()
-    }
 
     override fun onDestroy() {
-        binding.mapView.onDestroy()
+        binding.mapView.onDetach() // Correct method for OSMDroid
         super.onDestroy()
     }
 
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding.mapView.onLowMemory()
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        binding.mapView.onSaveInstanceState(outState)
-    }
 }

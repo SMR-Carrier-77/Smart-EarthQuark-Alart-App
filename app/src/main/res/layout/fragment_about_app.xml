@@ -1,9 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context="com.example.smartearthquarkalart.views.dashboard.setting.other.AboutAppFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,36 +14,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:paddingBottom="16dp">
 
             <ImageView
                 android:id="@+id/appLogo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/ic_launcher"
-                android:contentDescription="App Logo"/>
+                android:contentDescription="App Logo"
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center"
+                android:paddingTop="8dp"
                 android:text="Smart EarthQuark Alert"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_16sdp"
-                />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,21 +53,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="About the App"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
                     android:paddingBottom="8dp"
+                    android:text="About the App"
                     android:textAlignment="center"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="EarthQuark Alert is a real-time earthquake monitoring application that provides instant alerts and detailed information about seismic activities. The app fetches data directly from a reliable API server, giving you up-to-date information about earthquakes in your area.\n\nIt displays key details such as magnitude, location, and depth of earthquakes, helping users stay aware and prepared. With instant notifications, you can respond quickly in case of nearby seismic activity."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
                     android:paddingBottom="8dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="EarthQuark Alert is a real-time earthquake monitoring application that provides instant alerts and detailed information about seismic activities. The app fetches data directly from a reliable API server, giving you up-to-date information about earthquakes in your area.\n\nIt displays key details such as magnitude, location, and depth of earthquakes, helping users stay aware and prepared. With instant notifications, you can respond quickly in case of nearby seismic activity."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -75,9 +74,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,19 +87,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Key Features"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
                     android:paddingBottom="8dp"
-                    android:textAlignment="center"/>
+                    android:text="Key Features"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Real-Time Alerts: Receive instant notifications for earthquakes near your location.\n\n• Live Data Feed: Fetches up-to-date earthquake information directly from a trusted API server.\n\n• Detailed Information: View magnitude, location, depth, and time of each earthquake.\n\n• Easy-to-Read Interface: Simple, clean design to quickly understand seismic activity.\n\n• Safety Awareness: Stay informed to take precautionary measures during seismic events.\n\n• Lightweight and Efficient: Works smoothly on most Android devices without slowing down your phone."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="• Real-Time Alerts: Receive instant notifications for earthquakes near your location.\n\n• Live Data Feed: Fetches up-to-date earthquake information directly from a trusted API server.\n\n• Detailed Information: View magnitude, location, depth, and time of each earthquake.\n\n• Easy-to-Read Interface: Simple, clean design to quickly understand seismic activity.\n\n• Safety Awareness: Stay informed to take precautionary measures during seismic events.\n\n• Lightweight and Efficient: Works smoothly on most Android devices without slowing down your phone."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

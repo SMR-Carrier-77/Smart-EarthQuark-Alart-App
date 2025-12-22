@@ -4,10 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="4dp"
+    card_view:cardBackgroundColor="#323D52"
     card_view:cardCornerRadius="14dp"
-    android:layout_marginHorizontal="12dp"
-    card_view:cardElevation="4dp"
-    card_view:cardBackgroundColor="#323D52">
+    card_view:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,18 +23,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/tvMagnitude"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center"
                 android:background="@drawable/mag_circle_dark"
                 android:gravity="center"
                 android:text="3.3"
                 android:textColor="#4FC3F7"
-                android:layout_gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -60,28 +59,28 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp">
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvDate"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
-                        android:text="2025-11-27  15:54:24"
-                        android:maxLines="1"
-                        android:textColor="#9AA4B2"
                         android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="2025-11-27  15:54:24"
+                        android:textColor="#9AA4B2"
                         android:textSize="16sp" />
 
 
                     <TextView
                         android:id="@+id/tvTimeAgo"
-                        android:layout_width="80dp"
-                        android:ellipsize="end"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="21 min ago"
                         android:textColor="#9AA4B2"
-                        android:maxLines="1"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -89,17 +88,17 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="6dp">
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvLatitude"
                         android:layout_width="160dp"
-                        android:ellipsize="end"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Lat: 0.1500"
                         android:textColor="#9AA4B2"
-                        android:maxLines="1"
                         android:textSize="16sp" />
 
 
@@ -107,10 +106,10 @@
                         android:id="@+id/tvLongitude"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:text="Lon: 123.8600"
-                        android:textColor="#9AA4B2"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:text="Lon: 123.8600"
+                        android:textColor="#9AA4B2"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -118,31 +117,29 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvDepth"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Depth: 192.0 km"
                         android:textColor="#9AA4B2"
-                        android:ellipsize="end"
-                        android:textSize="16sp"
-                        android:maxLines="1"
-                        />
+                        android:textSize="16sp" />
 
 
                     <TextView
                         android:id="@+id/tvMagnitudeType"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Magnitude Type: M"
                         android:textColor="#9AA4B2"
-                        android:ellipsize="end"
-                        android:textSize="16sp"
-                        android:maxLines="1"
-                        />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -151,13 +148,12 @@
                     android:id="@+id/tvTsunamiStatus"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="Tsunami: No"
                     android:textColor="#9AA4B2"
-                    android:textSize="16sp"
-                    android:ellipsize="end"
-                    android:layout_marginTop="2dp"
-                    android:maxLines="1"
-                    />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

@@ -1,9 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context="com.example.smartearthquarkalart.views.dashboard.setting.other.PrivacyPolicyFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,28 +14,28 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="16dp"
             android:text="Privacy Policy"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingBottom="16dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Effective Date: December 22, 2025"
-            android:textSize="20sp"
             android:paddingBottom="12dp"
-            android:textColor="?attr/android:textColorSecondary"/>
+            android:text="Effective Date: December 22, 2025"
+            android:textColor="?attr/android:textColorSecondary"
+            android:textSize="20sp" />
 
         <!-- 1. Information Collection -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,21 +44,20 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="1. Information Collection and Use"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingBottom="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:paddingBottom="4dp"
+                    android:text="1. Information Collection and Use"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• EarthQuark Alert collects location data to provide real-time earthquake alerts near your area.\n\n• Internet access is used to fetch earthquake data, push notifications, and sync with Firebase services.\n\n• Other user data, such as app usage or crash reports, may be collected anonymously through Firebase Analytics or crash reporting libraries.\n\n• No personally identifiable information (PII) is sold or shared with third parties."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="• EarthQuark Alert collects location data to provide real-time earthquake alerts near your area.\n\n• Internet access is used to fetch earthquake data, push notifications, and sync with Firebase services.\n\n• Other user data, such as app usage or crash reports, may be collected anonymously through Firebase Analytics or crash reporting libraries.\n\n• No personally identifiable information (PII) is sold or shared with third parties."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -66,9 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,21 +77,20 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="2. Permissions"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingBottom="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:paddingBottom="4dp"
+                    android:text="2. Permissions"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Location: Required to detect your location and send local earthquake alerts.\n\n• Internet: Required to fetch real-time earthquake data and update app content.\n\n• Notifications: Required to send alerts when earthquakes are detected.\n\n• Storage: Required if you save offline earthquake data or settings locally.\n\nAll permissions are used only for app functionality and are not misused."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="• Location: Required to detect your location and send local earthquake alerts.\n\n• Internet: Required to fetch real-time earthquake data and update app content.\n\n• Notifications: Required to send alerts when earthquakes are detected.\n\n• Storage: Required if you save offline earthquake data or settings locally.\n\nAll permissions are used only for app functionality and are not misused."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -100,9 +99,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,21 +110,20 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="3. Third-Party Services"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingBottom="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:paddingBottom="4dp"
+                    android:text="3. Third-Party Services"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• EarthQuark Alert uses Firebase services for Analytics, Database, Messaging, Storage, and Crash Reporting.\n\n• No third-party advertising libraries are used.\n\n• Data collected by third-party services is subject to their privacy policies."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="• EarthQuark Alert uses Firebase services for Analytics, Database, Messaging, Storage, and Crash Reporting.\n\n• No third-party advertising libraries are used.\n\n• Data collected by third-party services is subject to their privacy policies."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -134,9 +132,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -145,21 +143,20 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="4. Data Retention"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingBottom="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:paddingBottom="4dp"
+                    android:text="4. Data Retention"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• All location data and offline settings are stored locally on your device.\n\n• Firebase may store anonymous usage or crash data for analytics purposes.\n\n• Uninstalling the app will remove all locally stored data permanently."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="• All location data and offline settings are stored locally on your device.\n\n• Firebase may store anonymous usage or crash data for analytics purposes.\n\n• Uninstalling the app will remove all locally stored data permanently."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -168,9 +165,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -179,21 +176,20 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="5. Children’s Privacy"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingBottom="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   />
+                    android:paddingBottom="4dp"
+                    android:text="5. Children’s Privacy"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• This app is not intended for children under 13.\n\n• No personal information is knowingly collected from children under 13."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="• This app is not intended for children under 13.\n\n• No personal information is knowingly collected from children under 13."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -202,9 +198,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -213,21 +209,20 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="6. Changes to This Privacy Policy"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingBottom="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   />
+                    android:paddingBottom="4dp"
+                    android:text="6. Changes to This Privacy Policy"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="We may update this Privacy Policy from time to time. Updates will be posted here. Please review periodically for changes."
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="We may update this Privacy Policy from time to time. Updates will be posted here. Please review periodically for changes."
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -236,9 +231,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
             android:elevation="5dp"
-            app:cardBackgroundColor="?attr/android:colorBackground">
+            app:cardBackgroundColor="?attr/android:colorBackground"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -247,21 +242,20 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="7. Contact Us"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingBottom="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:paddingBottom="4dp"
+                    android:text="7. Contact Us"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="For any questions or concerns regarding this Privacy Policy, please contact us at: smartearthquarkalert@gmail.com"
-                    android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
-                    android:textColor="?attr/android:textColorSecondary"/>
+                    android:text="For any questions or concerns regarding this Privacy Policy, please contact us at: smartearthquarkalert@gmail.com"
+                    android:textColor="?attr/android:textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

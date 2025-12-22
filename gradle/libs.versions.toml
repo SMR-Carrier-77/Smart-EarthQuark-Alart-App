@@ -26,6 +26,7 @@ firebaseMessaging = "25.0.1"
 firebaseInappmessagingDisplay = "22.0.2"
 hilt-android = "2.57.2"
 maplibre = "12.3.0"
+osmdroidAndroid = "6.1.20"
 playServicesLocation = "21.3.0"
 volley = "1.2.1"
 
@@ -55,6 +56,7 @@ firebase-inappmessaging-display = { group = "com.google.firebase", name = "fireb
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-android" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt-android" }
 maplibre = { group = "org.maplibre.gl", name = "android-sdk", version.ref = "maplibre" }
+osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroid" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
 

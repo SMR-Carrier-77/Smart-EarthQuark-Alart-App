@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
-    android:background="?attr/android:colorBackground">
+    tools:context="com.example.smartearthquarkalart.views.dashboard.setting.other.DeleteAccountFragment"
+
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
