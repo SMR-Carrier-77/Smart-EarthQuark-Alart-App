@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -11,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- App Logo and Title -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,24 +18,24 @@
             android:paddingBottom="16dp">
 
             <ImageView
-                android:id="@+id/developerLogo"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:id="@+id/appLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@mipmap/ic_launcher"
-                android:contentDescription="Developer Logo"
-                android:layout_marginBottom="8dp"/>
+                android:contentDescription="App Logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Developer Info"
+                android:text="Smart EarthQuark Alert"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:paddingTop="8dp"
                 android:gravity="center"
-                android:textColor="?attr/android:textColor"/>
+                android:layout_marginTop="@dimen/_16sdp"
+                />
         </LinearLayout>
 
-        <!-- Developer Info Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,23 +53,24 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="About the Developer"
+                    android:text="About the App"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:paddingBottom="8dp"
+                    android:textAlignment="center"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name: AR Sarkar\nRole: Android Developer\nEmail: example@email.com\nGitHub: github.com/username\nAdditional Info: You can add more details here about yourself, your projects, or how to contact you."
+                    android:text="EarthQuark Alert is a real-time earthquake monitoring application that provides instant alerts and detailed information about seismic activities. The app fetches data directly from a reliable API server, giving you up-to-date information about earthquakes in your area.\n\nIt displays key details such as magnitude, location, and depth of earthquakes, helping users stay aware and prepared. With instant notifications, you can respond quickly in case of nearby seismic activity."
                     android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
+                    android:paddingBottom="8dp"
                     android:textColor="?attr/android:textColorSecondary"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Optional: More Info Section -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,16 +88,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="More Info"
+                    android:text="Key Features"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:paddingBottom="8dp"
-                    />
+                    android:textAlignment="center"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="You can provide additional information here, such as your skills, social media links, or app-related notes. This section is fully customizable to fit your needs."
+                    android:text="• Real-Time Alerts: Receive instant notifications for earthquakes near your location.\n\n• Live Data Feed: Fetches up-to-date earthquake information directly from a trusted API server.\n\n• Detailed Information: View magnitude, location, depth, and time of each earthquake.\n\n• Easy-to-Read Interface: Simple, clean design to quickly understand seismic activity.\n\n• Safety Awareness: Stay informed to take precautionary measures during seismic events.\n\n• Lightweight and Efficient: Works smoothly on most Android devices without slowing down your phone."
                     android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
                     android:textColor="?attr/android:textColorSecondary"/>
