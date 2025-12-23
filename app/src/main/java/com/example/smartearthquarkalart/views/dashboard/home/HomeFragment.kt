@@ -185,7 +185,7 @@ class HomeFragment :
         map.setMultiTouchControls(true)
 
         val controller = map.controller
-        controller.setZoom(10.0)
+        controller.setZoom(4.0)
 
         val userPoint = GeoPoint(lat, lon)
         controller.setCenter(userPoint)

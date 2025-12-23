@@ -5,56 +5,93 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
 import com.example.smartearthquarkalart.R
+import com.example.smartearthquarkalart.base.BaseFragment
+import com.example.smartearthquarkalart.data.models.Earthquake_Data_Class
+import com.example.smartearthquarkalart.databinding.FragmentAlartBinding
+import com.example.smartearthquarkalart.views.adapter.EarthquakeAdapter
+import org.json.JSONArray
+import org.osmdroid.util.GeoPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class AlartFragment : BaseFragment<FragmentAlartBinding>(FragmentAlartBinding::inflate) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AlartFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AlartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val dataList = mutableListOf<Earthquake_Data_Class>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun setListener() {
+
+        loadData()
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alart, container, false)
+    override fun allObserver() {
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AlartFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AlartFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun loadData() {
+        val queue = Volley.newRequestQueue(requireContext())
+
+        val request = JsonArrayRequest(
+            Request.Method.GET,
+            "https://arsarkar.xyz/apps/get_earthquake_query_data.php",
+            null,
+            { response: JSONArray ->
+
+                binding.animationView.visibility = View.GONE
+                binding.alartData.visibility = View.VISIBLE
+
+                dataList.clear()
+
+                for (i in 0 until response.length()) {
+                    val obj = response.getJSONObject(i)
+
+                    val item = Earthquake_Data_Class(
+                        obj.optInt("id"),
+                        obj.optString("event_id"),
+                        obj.optDouble("magnitude").toFloat(),
+                        obj.optString("place"),
+                        obj.optLong("event_time"),
+                        obj.optDouble("latitude"),
+                        obj.optDouble("longitude"),
+                        obj.optString("depth"),
+                        obj.optString("title"),
+                        obj.optInt("tsunami"),
+                        obj.optString("magType"),
+                        obj.optInt("sig")
+                    )
+
+                    dataList.add(item)
+                    //locations.add(GeoPoint(item.latitude, item.longitude))
                 }
+
+                setupRecycler()
+
+            },
+            {
+                Toast.makeText(
+                    requireContext(),
+                    "Error loading data",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+        )
+
+        queue.add(request)
     }
+
+    // -------------------- Recycler --------------------
+    private fun setupRecycler() {
+        dataList.sortByDescending { it.event_time }
+        binding.recycleView.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.recycleView.adapter =
+            EarthquakeAdapter(requireContext(), dataList)
+    }
+
+
+
 }

@@ -33,7 +33,7 @@ class EarthquakeAdapter(
            dataList[position].let{
 
                tvPlace.text = it.place
-               tvDepth.text = it.depth
+               tvDepth.text = "Depth: "+it.depth
                tvMagnitude.text = "%.2f".format(it.magnitude)
                tvLatitude.text = "Lat: %.2f".format(it.latitude)
                tvLongitude.text = "Lon: %.2f".format(it.longitude)
@@ -67,19 +67,17 @@ class EarthquakeAdapter(
 
                tvDate.text =eventTimeStr.toString()
 
-               var level = it.magType
+               var level = it.magType.lowercase()
 
-               if (level=="md"){
-                   tvMagnitudeType.text = "Type: Micro"
-               }else if (level=="ml"){
-                   tvMagnitudeType.text = "Type: Normal"
-               }else if (level=="mb"){
-                   tvMagnitudeType.text = "Type: Medium"
-               }else if (level=="ms"){
-                   tvMagnitudeType.text = "Type: Big"
-               }else if (level=="mw"){
-                   tvMagnitudeType.text = "Type: Dangerous"
+               tvMagnitudeType.text = when(level) {
+                   "md" -> "Type: Normal"
+                   "ml" -> "Type: Micro"
+                   "mb" -> "Type: Medium"
+                   "ms" -> "Type: Big"
+                   "mw" -> "Type: Dangerous"
+                   else -> "Type: Unknown"
                }
+
 
                if (it.tsunami==0){
                    tvTsunamiStatus.text = "Tsunami: No"
