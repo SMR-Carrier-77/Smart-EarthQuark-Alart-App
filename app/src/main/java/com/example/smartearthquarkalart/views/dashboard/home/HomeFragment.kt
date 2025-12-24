@@ -71,6 +71,7 @@ class HomeFragment :
 
     // -------------------- API load --------------------
     private fun loadData() {
+
         val queue = Volley.newRequestQueue(requireContext())
 
         val request = JsonArrayRequest(
@@ -216,7 +217,9 @@ class HomeFragment :
 
     // -------------------- Recycler --------------------
     private fun setupRecycler() {
+
         dataList.sortByDescending { it.event_time }
+
         binding.recycleView.layoutManager =
             LinearLayoutManager(requireContext())
         binding.recycleView.adapter =

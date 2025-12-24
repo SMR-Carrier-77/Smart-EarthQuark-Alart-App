@@ -56,16 +56,13 @@ class DetailsActivity : AppCompatActivity() {
 
 
 
-        if (magType=="md"){
-            binding.magType.text = "Micro"
-        }else if (magType=="ml"){
-            binding.magType.text = "Normal"
-        }else if (magType=="mb"){
-            binding.magType.text = "Medium"
-        }else if (magType=="ms"){
-            binding.magType.text = "Big"
-        }else if (magType=="mw"){
-            binding.magType.text = "Dangerous"
+        binding.magType.text = when(magType) {
+            "md" -> "Normal"
+            "ml" -> "Micro"
+            "mb" -> "Medium"
+            "ms" -> "Big"
+            "mw" -> "Dangerous"
+            else -> "Unknown"
         }
 
         // Time formatting
