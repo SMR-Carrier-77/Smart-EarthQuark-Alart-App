@@ -9,10 +9,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import com.example.smartearthquarkalart.data.models.Earthquake_Data_Class
 import com.example.smartearthquarkalart.databinding.ActivityDetailsBinding
 import com.example.smartearthquarkalart.views.dashboard.home.HomeFragment.Companion.lat
 import com.example.smartearthquarkalart.views.dashboard.home.HomeFragment.Companion.lon
+import org.json.JSONArray
 import org.maplibre.android.maps.MapLibreMap
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
@@ -23,68 +29,161 @@ import java.util.Locale
 class DetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsBinding
-    private lateinit var map: MapLibreMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         Handler(Looper.getMainLooper()).postDelayed({
             binding.loadingContainer.visibility = View.GONE
             binding.scrollView.visibility = View.VISIBLE
         }, 3000)
 
-        // Get data from intent
-        val place = intent.getStringExtra("place") ?: "Unknown"
-        val depth = intent.getStringExtra("depth") ?: "0"
-        val magnitude = intent.getFloatExtra("magnitude", 0f)
-        val latitude = intent.getDoubleExtra("latitude", 0.0)
-        val longitude = intent.getDoubleExtra("longitude", 0.0)
-        val time = intent.getLongExtra("time", 0L)
-        val magType = intent.getStringExtra("magType") ?: "-"
-        val tsunami = intent.getIntExtra("tsunami", 0)
+        val openNoti = intent.getStringExtra("open")
 
-        setupMap(latitude , longitude , place)
+        if (openNoti=="openNotification"){
 
-        // Bind data to views
-        binding.tvMagnitude.text = magnitude.toString()
-        binding.tvLocation.text = place
-        binding.tvDepth.text = "Depth: $depth km"
-        binding.tvLatitude.text = "Latitude: $latitude"
-        binding.tvLongitude.text = "Longitude: $longitude"
+            loadDataFromServer()
+
+        }
+        else{
+            // Get data from intent
+            val place = intent.getStringExtra("place") ?: "Unknown"
+            val depth = intent.getStringExtra("depth") ?: "0"
+            val magnitude = intent.getFloatExtra("magnitude", 0f)
+            val latitude = intent.getDoubleExtra("latitude", 0.0)
+            val longitude = intent.getDoubleExtra("longitude", 0.0)
+            val time = intent.getLongExtra("time", 0L)
+            val magType = intent.getStringExtra("magType") ?: "-"
+            val tsunami = intent.getIntExtra("tsunami", 0)
+
+            setupMap(latitude , longitude , place)
+
+            // Bind data to views
+            binding.tvMagnitude.text = magnitude.toString()
+            binding.tvLocation.text = place
+            binding.tvDepth.text = "Depth: $depth km"
+            binding.tvLatitude.text = "Latitude: $latitude"
+            binding.tvLongitude.text = "Longitude: $longitude"
 
 
 
-        binding.magType.text = when(magType) {
-            "md" -> "Normal"
-            "ml" -> "Micro"
-            "mb" -> "Medium"
-            "ms" -> "Big"
-            "mw" -> "Dangerous"
-            else -> "Unknown"
+            binding.magType.text = when(magType) {
+                "md" -> "Normal"
+                "ml" -> "Micro"
+                "mb" -> "Medium"
+                "ms" -> "Big"
+                "mw" -> "Dangerous"
+                else -> "Unknown"
+            }
+
+            // Time formatting
+            val formattedTime = try {
+                SimpleDateFormat(
+                    "dd MMM yyyy, hh:mm a",
+                    Locale.getDefault()
+                ).format(Date(time))
+            } catch (e: Exception) {
+                time.toString()
+            }
+            binding.tvTime.text = formattedTime
+
+            // Magnitude color based on severity
+            binding.tvMagnitude.setTextColor(
+                when {
+                    magnitude >= 5f -> Color.RED
+                    magnitude >= 3f -> Color.parseColor("#FFA500")
+                    else -> Color.GREEN
+                }
+            )
+
         }
 
-        // Time formatting
-        val formattedTime = try {
-            SimpleDateFormat(
-                "dd MMM yyyy, hh:mm a",
-                Locale.getDefault()
-            ).format(Date(time))
-        } catch (e: Exception) {
-            time.toString()
-        }
-        binding.tvTime.text = formattedTime
+    }
 
-        // Magnitude color based on severity
-        binding.tvMagnitude.setTextColor(
-            when {
-                magnitude >= 5f -> Color.RED
-                magnitude >= 3f -> Color.parseColor("#FFA500")
-                else -> Color.GREEN
+
+    private fun loadDataFromServer() {
+
+        val queue = Volley.newRequestQueue(this)
+
+        val request = JsonArrayRequest(
+            Request.Method.GET,
+            "https://arsarkar.xyz/apps/last_earthquake_data.php",
+            null,
+            { response: JSONArray ->
+
+                binding.mapView.overlays.clear()
+
+                for (i in 0 until response.length()) {
+                    val obj = response.getJSONObject(i)
+
+                    val magnitude =  obj.optDouble("magnitude").toFloat()
+                    val place = obj.optString("place")
+                    val time = obj.optLong("event_time")
+                    val latitude =  obj.optDouble("latitude")
+                    val longitude =  obj.optDouble("longitude")
+                    val depth = obj.optString("depth")
+                    val tsunami = obj.optInt("tsunami")
+                    val magType = obj.optString("magType")
+
+
+                    setupMap(latitude , longitude , place)
+
+                    // Bind data to views
+                    binding.tvMagnitude.text = magnitude.toString()
+                    binding.tvLocation.text = place
+                    binding.tvDepth.text = "Depth: $depth km"
+                    binding.tvLatitude.text = "Latitude: $latitude"
+                    binding.tvLongitude.text = "Longitude: $longitude"
+
+                    binding.magType.text = when(magType) {
+                        "md" -> "Normal"
+                        "ml" -> "Micro"
+                        "mb" -> "Medium"
+                        "ms" -> "Big"
+                        "mw" -> "Dangerous"
+                        else -> "Unknown"
+                    }
+
+                    // Time formatting
+                    val formattedTime = try {
+                        SimpleDateFormat(
+                            "dd MMM yyyy, hh:mm a",
+                            Locale.getDefault()
+                        ).format(Date(time))
+                    } catch (e: Exception) {
+                        time.toString()
+                    }
+                    binding.tvTime.text = formattedTime
+
+                    // Magnitude color based on severity
+                    binding.tvMagnitude.setTextColor(
+                        when {
+                            magnitude >= 5f -> Color.RED
+                            magnitude >= 3f -> Color.parseColor("#FFA500")
+                            else -> Color.GREEN
+                        }
+                    )
+
+                }
+
+            },
+            {
+                Toast.makeText(
+                    this,
+                    "Error loading data",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         )
+
+        queue.add(request)
+
+
     }
+
 
     private fun createRedDotIcon(): BitmapDrawable {
         val size = 40

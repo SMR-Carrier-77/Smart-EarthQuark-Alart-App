@@ -4,9 +4,12 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".dependencyinjection.MyApp"
@@ -18,13 +21,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartEarthQuarkAlart">
+
         <activity
             android:name=".views.dashboard.DashboardActivity"
             android:theme="@style/Theme.SmartEarthQuarkAlart.App.Bar"
-            android:exported="false"/>
+            android:exported="false" />
+
         <activity
             android:name=".views.details.DetailsActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:parentActivityName=".views.dashboard.DashboardActivity" />
+
+
         <activity
             android:name=".views.starter.MainActivity"
             android:exported="true">
@@ -34,6 +42,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

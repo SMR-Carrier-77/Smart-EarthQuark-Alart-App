@@ -93,7 +93,7 @@
 
                     <TextView
                         android:id="@+id/tvLatitude"
-                        android:layout_width="160dp"
+                        android:layout_width="132dp"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
@@ -101,6 +101,12 @@
                         android:textColor="#9AA4B2"
                         android:textSize="16sp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "
+                        android:textColor="#9AA4B2"
+                        />
 
                     <TextView
                         android:id="@+id/tvLongitude"
@@ -122,13 +128,20 @@
 
                     <TextView
                         android:id="@+id/tvDepth"
-                        android:layout_width="160dp"
+                        android:layout_width="132dp"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="Depth: 192.0 km"
                         android:textColor="#9AA4B2"
                         android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "
+                        android:textColor="#9AA4B2"
+                        />
 
 
                     <TextView

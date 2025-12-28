@@ -93,5 +93,8 @@ dependencies {
     // OSM Mao
     implementation(libs.osmdroid.android)
 
+    // swipe
+    implementation(libs.androidx.swiperefreshlayout)
+
 
 }

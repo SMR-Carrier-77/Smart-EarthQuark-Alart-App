@@ -35,6 +35,16 @@ class HomeFragment :
     }
 
     override fun setListener() {
+
+        // Pull to refresh listener
+        binding.swipeRefresh.setOnRefreshListener {
+
+            binding.animationView.visibility = View.VISIBLE
+            binding.homeData.visibility = View.GONE
+
+            loadData()
+        }
+
         setupOSM()
         loadSavedLocation()
         loadData()
@@ -83,6 +93,8 @@ class HomeFragment :
                 binding.animationView.visibility = View.GONE
                 binding.homeData.visibility = View.VISIBLE
 
+                binding.swipeRefresh.isRefreshing = false
+
                 dataList.clear()
                 locations.clear()
                 binding.mapView.overlays.clear()
@@ -114,6 +126,9 @@ class HomeFragment :
 
             },
             {
+
+                binding.swipeRefresh.isRefreshing = false
+
                 Toast.makeText(
                     requireContext(),
                     "Error loading data",
