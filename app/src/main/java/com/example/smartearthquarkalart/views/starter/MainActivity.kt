@@ -156,4 +156,20 @@ class MainActivity : AppCompatActivity() {
             fusedLocationClient.removeLocationUpdates(locationCallback)
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        AlertDialog.Builder(this)
+            .setTitle("Warning")
+            .setIcon(R.drawable.ic_warnings)
+            .setMessage("Are you sure?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+
+    }
 }

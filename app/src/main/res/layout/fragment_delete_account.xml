@@ -52,8 +52,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Deleting your account will permanently remove all your personal data, including saved locations, preferences, and offline alerts. This action cannot be undone. Please make sure you really want to delete your account."
-                    android:textSize="16sp"
+                    android:text="Deleting your account will schedule it for permanent deletion after 14 days. During this 14-day period, your personal data including saved locations, preferences, and offline alerts will remain securely stored. If you do not log in again within these 14 days, your account and all associated data will be permanently deleted. This action cannot be undone once the deletion is completed. Please make sure you really want to proceed."
+                    android:textSize="20sp"
                     android:lineSpacingExtra="2dp"
                     android:textColor="?attr/android:textColorSecondary"/>
             </LinearLayout>
@@ -70,16 +70,6 @@
             android:textColor="@android:color/white"
             android:backgroundTint="@android:color/holo_red_dark"
             android:layout_marginBottom="12dp"/>
-
-        <!-- Cancel Button -->
-        <Button
-            android:id="@+id/btnCancelDelete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:backgroundTint="?attr/colorSecondary"/>
 
     </LinearLayout>
 </ScrollView>

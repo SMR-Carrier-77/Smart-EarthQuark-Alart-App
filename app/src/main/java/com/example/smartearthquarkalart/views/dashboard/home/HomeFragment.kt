@@ -8,10 +8,12 @@ import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.example.smartearthquarkalart.R
 import com.example.smartearthquarkalart.base.BaseFragment
 import com.example.smartearthquarkalart.data.models.Earthquake_Data_Class
 import com.example.smartearthquarkalart.databinding.FragmentHomeBinding
@@ -36,7 +38,6 @@ class HomeFragment :
 
     override fun setListener() {
 
-        // Pull to refresh listener
         binding.swipeRefresh.setOnRefreshListener {
 
             binding.animationView.visibility = View.VISIBLE
@@ -235,10 +236,8 @@ class HomeFragment :
 
         dataList.sortByDescending { it.event_time }
 
-        binding.recycleView.layoutManager =
-            LinearLayoutManager(requireContext())
-        binding.recycleView.adapter =
-            EarthquakeAdapter(requireContext(), dataList)
+        binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycleView.adapter = EarthquakeAdapter(requireContext(), dataList)
     }
 
     // -------------------- Map lifecycle --------------------
@@ -256,4 +255,5 @@ class HomeFragment :
         binding.mapView.onDetach()
         super.onDestroy()
     }
+
 }

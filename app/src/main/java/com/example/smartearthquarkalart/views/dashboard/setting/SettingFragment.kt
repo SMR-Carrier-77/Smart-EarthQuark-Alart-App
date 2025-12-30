@@ -1,5 +1,6 @@
 package com.example.smartearthquarkalart.views.dashboard.setting
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,14 +23,24 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
 
     private lateinit var auth: FirebaseAuth
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Firebase Auth initialize করুন
-        auth = FirebaseAuth.getInstance()
-    }
-
     override fun setListener() {
+
+        auth = FirebaseAuth.getInstance()
+
+        var curretUser = auth.currentUser
+
+        if (curretUser!=null){
+
+            val email = curretUser.email
+            val name = email?.substringBefore("@")
+            binding.fullName.text = name
+            binding.workerEmail.text = curretUser.email
+
+
+        }else{
+            //requireActivity().startActivity(Intent(requireContext() , LogIn::class.java))
+            //requireActivity().finish()
+        }
 
         binding.privacyPolicy.setOnClickListener {
             findNavController().navigate(R.id.privacyPolicyFragment)
@@ -48,14 +59,29 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
         }
 
         binding.logOut.setOnClickListener {
-            // Firebase থেকে logout
-            auth.signOut()
 
-            // Login screen এ redirect with flags
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            requireContext().startActivity(intent)
-            requireActivity().finish()
+            AlertDialog.Builder(requireContext())
+                .setTitle("Warning")
+                .setIcon(R.drawable.ic_warnings)
+                .setMessage("Are you sure?")
+                .setPositiveButton("Yes") { dialog, _ ->
+                    dialog.dismiss()
+
+                    // Firebase থেকে logout
+                    auth.signOut()
+
+                    // Login screen এ redirect with flags
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    requireContext().startActivity(intent)
+                    requireActivity().finish()
+
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+
         }
 
     }

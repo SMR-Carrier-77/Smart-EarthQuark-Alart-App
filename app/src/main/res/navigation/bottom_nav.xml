@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/alartFragment"
         android:name="com.example.smartearthquarkalart.views.dashboard.alart.AlartFragment"
-        android:label="Alart"
+        android:label="Recent"
         tools:layout="@layout/fragment_alart" />
     <fragment
         android:id="@+id/settingFragment"

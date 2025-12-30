@@ -81,7 +81,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     private fun fireBaseToken(token: String) {
-        val url = "https://arsarkar.xyz/firebase/get_token.php?token=$token"
+        val url = "https://arsarkar.xyz/apps/firebase/get_token.php?token=$token"
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->

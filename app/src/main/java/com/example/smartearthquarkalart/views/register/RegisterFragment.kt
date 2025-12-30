@@ -69,8 +69,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 }
                 is DataState.Success -> {
                     loading_progress_dialog.dismiss()
-                    Toast.makeText(context , "Registation Success!!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(requireContext() , DashboardActivity::class.java))
+                    Toast.makeText(requireContext() , "Registation Success!!", Toast.LENGTH_SHORT).show()
+                    requireActivity().startActivity(Intent(requireContext() , DashboardActivity::class.java))
                     requireActivity().finish()
 
                 }
